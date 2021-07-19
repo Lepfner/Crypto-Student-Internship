@@ -11,18 +11,21 @@ function Dashboard() {
                 </div>
                 <div className="h-1/3 w-full flex justify-around items-center">
                     <div className="w-3/12 h-full">
-                        <button className="text-8x1 italic bg-purple-700 border-solid border focus:outline-none rounded-5x1 w-full h-full">Explore<br/>
-                        <FontAwesomeIcon icon={faSearch} color="white"/>
+                        <button className="wrapper relative text-8x1 italic bg-purple-700 border-solid border focus:outline-none rounded-5x1 w-full h-full hover:text-purple-700 hover:opacity-50 duration-300">Explore<br/>
+                        <p className="content text-white absolute top-2/4 left-2/4 transform -translate-x-1/2 -translate-y-1/2">Explore this div</p>
+                        <FontAwesomeIcon icon={faSearch} color="white" className="h-7 wrapper-image"/>
                         </button>
                     </div>
                     <div className="w-3/12 h-full">
-                        <button className="text-8x1 italic bg-purple-700 border-solid border focus:outline-none rounded-5x1 w-full h-full">Mint<br/>
-                        <FontAwesomeIcon icon={faWallet} color="white"/>
+                        <button className="wrapper relative text-8x1 italic bg-purple-700 border-solid border focus:outline-none rounded-5x1 w-full h-full hover:text-purple-700 hover:opacity-50 duration-300">Mint<br/>
+                        <p className="content text-white absolute top-2/4 left-2/4 transform -translate-x-1/2 -translate-y-1/2">Explore this div</p>
+                        <FontAwesomeIcon icon={faWallet} color="white" className="h-7 wrapper-image"/>
                         </button>
                     </div>
                     <div className="w-3/12 h-full">
-                        <button className="text-8x1 italic bg-purple-700 border-solid border focus:outline-none rounded-5x1 w-full h-full">Transfer<br/>
-                        <FontAwesomeIcon icon={faExchangeAlt} color="white"/>
+                        <button className="wrapper relative text-8x1 italic bg-purple-700 border-solid border focus:outline-none rounded-5x1 w-full h-full hover:text-purple-700 hover:opacity-50 duration-300">Transfer<br/>
+                        <p className="content text-white absolute top-2/4 left-2/4 transform -translate-x-1/2 -translate-y-1/2">Explore this div</p>
+                        <FontAwesomeIcon icon={faExchangeAlt} color="white" className="h-7 wrapper-image"/>
                         </button>
                     </div>
                 </div>

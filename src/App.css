@@ -9,7 +9,7 @@
     width: 100wh;
     height: 100vh;
     color: #fff;
-    background: linear-gradient(-45deg, #EE7752, #F75795, #23A6D5, #23D5AB);
+    background: linear-gradient(-45deg, #EE7752, #EB7AA6, #23A6D5, #23D5AB);
     background-size: 400% 400%;
     -webkit-animation: Gradient 15s ease infinite;
     -moz-animation: Gradient 15s ease infinite;
@@ -180,4 +180,13 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+  }
+  .wrapper:hover .content{
+    opacity: 1;
+  }
+  .wrapper:hover .wrapper-image{
+    opacity: 0;
+  }
+  .content{
+    opacity: 0;
   }
