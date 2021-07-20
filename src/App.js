@@ -47,7 +47,8 @@ const App = () => {
                 <form onSubmit={submit}>
                   <div className="border-r border-solid border-primary flex flex-col justify-center items-center">
                     <label className="italic text-black text-7x1 self-start ml-18">Welcome aboard!</label><br/>
-                    <input 
+                    <input
+                    maxLength="8"
                     placeholder="Ethererum wallet address" 
                     required 
                     type="password" 
