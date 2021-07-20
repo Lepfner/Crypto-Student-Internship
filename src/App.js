@@ -9,7 +9,7 @@ const App = () => {
   const [redirect, setRedirect] = useState(false);
   const [auth, setAuth] = useState();
 
-  const submit = async (e) => {
+  {/*const submit = async (e) => {
     e.preventDefault();
     await fetch('http://localhost:3000/api/login', {
       method: 'POST',
@@ -19,7 +19,7 @@ const App = () => {
         address
       })
     });
-    {/*const response = await fetch('http://localhost:3000/api/userAuth', {
+    const response = await fetch('http://localhost:3000/api/userAuth', {
         headers: {'Content-Type': 'application/json'},
         credentials: 'include',
     });
@@ -30,12 +30,22 @@ const App = () => {
     } else {
       alert (`Neispravan unos podataka!`);
     }
-  */}
     setRedirect (true);
+  } */}
+
+  function eventHandler(e) {
+    var searchTerm = document.getElementById('inputField3').value;
+    if (localStorage.getItem(searchTerm) == null) {
+      alert (`Invalid Ethereum address! Please try again!`);
+      e.preventDefault();
+    } else {
+      localStorage.setItem('myAddress', localStorage.getItem(searchTerm));
+      setRedirect(true);
+  }
   }
 
   if (redirect){
-    return <Router><Route exact path="/dashboard" component={MainMenu}></Route><Redirect to="/dashboard"/></Router>
+    return <Router><Route exact path="/dashboard" address={address} component={MainMenu}></Route><Redirect to="/dashboard"/></Router>
   }
 
   return (
@@ -44,10 +54,11 @@ const App = () => {
               {/*Livi dio*/}
               <div className="float-left block w-leftCol h-full">
                 <h1 className="text-11x1 font-bold mt-7 pl-login mb-12 text-black">LOGIN</h1>
-                <form onSubmit={submit}>
+                <form>
                   <div className="border-r border-solid border-primary flex flex-col justify-center items-center">
                     <label className="italic text-black text-7x1 self-start ml-18">Welcome aboard!</label><br/>
                     <input
+                    id="inputField3"
                     maxLength="8"
                     placeholder="Ethererum wallet address" 
                     required 
@@ -55,7 +66,7 @@ const App = () => {
                     className=" pl-2 h-11 text-7x1 w-88 border-solid border border-primary rounded-4x1 bg-fourth outline-none text-black"
                     onChange={e => {setAddress(e.target.value)}}/>
                     <br/>
-                    <button type="submit" className="bg-primary border-solid border focus:outline-none rounded-5x1 w-88 h-12 text-white text-7x1">Login</button>
+                    <button onClick={eventHandler} type="submit" className="bg-primary border-solid border focus:outline-none rounded-5x1 w-88 h-12 text-white text-7x1">Login</button>
                   </div>
                 </form>
               </div>
