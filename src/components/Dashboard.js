@@ -25,6 +25,26 @@ class Dashboard extends React.Component {
         {/*window.location.reload();*/}
     }
 
+    function eventHandler2(){
+        const transferAddress = parseInt(document.getElementById('inputField4').value);
+        const transferAmount = parseInt(document.getElementById('inputField5').value);
+        const transferValue = parseInt(localStorage.getItem(transferAddress)) + transferAmount;
+        const myNewValue = parseInt(localStorage.getItem('myAddress')) - transferAmount;
+        if (parseInt(localStorage.getItem('myAddress')) < transferAmount){
+            alert (`The amount you are trying to transfer is bigger than the amount on your address!`);
+        } else {
+            if (localStorage.getItem(transferAddress) == null) {
+                localStorage.setItem(transferAddress, transferAmount);
+                alert (`A new Ethereum has been created and the transfer to it has been completed!`);
+                localStorage.setItem('myAddress', myNewValue);
+            } else {
+            localStorage.setItem(transferAddress, transferValue);
+            localStorage.setItem('myAddress', myNewValue);
+            alert (`Transfer succesfull`);
+            }
+        }
+    }
+
     function logoutHandler() {
         localStorage.removeItem('myAddress');
     }
@@ -50,16 +70,18 @@ class Dashboard extends React.Component {
                 <div className="w-auto h-auto flex flex-col justify-evenly items-center content-around">
                     <p className="text-black mb-10">Your Ether amount: {localStorage.getItem('myAddress')}</p>
                     <input
+                    id="inputField4"
                     placeholder="Enter address"
                     className="mb-10 text-center pl-2 h-11 text-7x1 w-88 border-solid border border-primary rounded-4x1 bg-fourth outline-none text-black"
                     maxLength="8"
                     />
                     <input
+                    id="inputField5"
                     placeholder="Enter amount"
                     className="mb-10 text-center pl-2 h-11 text-7x1 w-88 border-solid border border-primary rounded-4x1 bg-fourth outline-none text-black"
                     maxLength="8"
                     />
-                    <button className="bg-primary border-solid border focus:outline-none rounded-5x1 w-88 h-12 text-white text-7x1">Transfer</button>
+                    <button onClick={eventHandler2} className="bg-primary border-solid border focus:outline-none rounded-5x1 w-88 h-12 text-white text-7x1">Transfer</button>
                 </div>
             </SkyLight>
             <div className="fixed top-2/4 left-2/4 bg-white transform -translate-x-1/2 -translate-y-1/2 w-2/3 h-2/3 rounded-6x1 shadow-lg flex flex-col justify-around items-center">
