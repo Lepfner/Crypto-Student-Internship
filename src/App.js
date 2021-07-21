@@ -45,7 +45,9 @@ const App = () => {
   }
 
   if (redirect){
-    return <Router><Route exact path="/dashboard" address={address} component={MainMenu}></Route><Redirect to="/dashboard"/></Router>
+    return <Router><Route exact path="/dashboard">
+        <MainMenu address={address}/>
+      </Route><Redirect to="/dashboard"/></Router>
   }
 
   return (

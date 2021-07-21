@@ -5,15 +5,24 @@ import { faSearch, faWallet, faExchangeAlt, faSignOutAlt } from '@fortawesome/fr
 import {BrowserRouter as Router, Route, Link, Switch, Redirect} from "react-router-dom";
 import SkyLight from 'react-skylight';
 
+//https://www.youtube.com/watch?v=LyLa7dU5tp8&ab_channel=WebDevSimplified Pogledati ovo, dodati custom modale i dashboard pretvoriti u functional komponentu
+
 class Dashboard extends React.Component {
     constructor(props){
       super(props);
+      this.state = {
+          currentAddress: this.props.address,
+      }
     }
     
     render(){
 
     function eventHandler(){
-        var searchTerm = document.getElementById('inputField2').value;
+        const mintAmount = parseInt(document.getElementById('inputField2').value);
+        const newAmount = parseInt(localStorage.getItem('myAddress'));
+        const Mint = mintAmount + newAmount;
+        localStorage.setItem('myAddress', Mint);
+        {/*window.location.reload();*/}
     }
 
     function logoutHandler() {
@@ -25,6 +34,7 @@ class Dashboard extends React.Component {
             <Route exact path="/explore" component={Explore}/>
             <div className="test">
             <SkyLight hideOnOverlayClicked ref={ref => this.simpleDialog = ref} title="">
+                {/*<p className="text-black absolute top-0 right-0 mr-3 mt-2">X</p>*/}
                 <div className="w-auto h-auto flex flex-col justify-evenly items-center content-around">
                     <p className="text-black mb-10">Your Ether amount: {localStorage.getItem('myAddress')}</p>
                     <input
