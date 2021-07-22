@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Route, Link, Switch, Redirect} from "react-router-dom";
+import {BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
 import Dashboard from './Dashboard';
 import {React} from 'react';
 

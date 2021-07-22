@@ -1,13 +1,15 @@
 import './App.css';
-import {BrowserRouter as Router, Route, Link, Switch, Redirect} from "react-router-dom";
+import {BrowserRouter as Router, Route, Redirect} from "react-router-dom";
 import {React, useState} from 'react';
-import MainMenu from './components/Dashboard';
+import MainMenu from './Dashboard';
+import { useCookies } from "react-cookie";
 
 const App = () => {
 
   const [address, setAddress] = useState('');
   const [redirect, setRedirect] = useState(false);
   const [auth, setAuth] = useState();
+  const [cookies, setCookie] = useCookies([]);
 
   {/*const submit = async (e) => {
     e.preventDefault();
@@ -39,7 +41,9 @@ const App = () => {
       alert (`Invalid Ethereum address! Please try again!`);
       e.preventDefault();
     } else {
-      localStorage.setItem('myAddress', localStorage.getItem(searchTerm));
+      setCookie(address, {
+        path: "/"
+      });
       setRedirect(true);
   }
   }
@@ -56,7 +60,7 @@ const App = () => {
               {/*Livi dio*/}
               <div className="float-left block w-leftCol h-full">
                 <h1 className="text-11x1 font-bold mt-7 pl-login mb-12 text-black">LOGIN</h1>
-                <form>
+                <form onSubmit={eventHandler}>
                   <div className="border-r border-solid border-primary flex flex-col justify-center items-center">
                     <label className="italic text-black text-7x1 self-start ml-18">Welcome aboard!</label><br/>
                     <input
@@ -65,7 +69,7 @@ const App = () => {
                     placeholder="Ethererum wallet address" 
                     required 
                     type="password" 
-                    className=" pl-2 h-11 text-7x1 w-88 border-solid border border-primary rounded-4x1 bg-fourth outline-none text-black"
+                    className="pl-2 h-11 text-7x1 w-88 border-solid border border-primary rounded-4x1 bg-fourth outline-none text-black"
                     onChange={e => {setAddress(e.target.value)}}/>
                     <br/>
                     <button onClick={eventHandler} type="submit" className="bg-primary border-solid border focus:outline-none rounded-5x1 w-88 h-12 text-white text-7x1">Login</button>

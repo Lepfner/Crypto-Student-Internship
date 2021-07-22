@@ -1,74 +1,106 @@
-import React from 'react';
+import {React, useState} from 'react';
 import Explore from './Explore'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faWallet, faExchangeAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import {BrowserRouter as Router, Route, Link, Switch, Redirect} from "react-router-dom";
-import SkyLight from 'react-skylight';
+import Login from './App';
+import Modal from './Modal'
 
-//https://www.youtube.com/watch?v=LyLa7dU5tp8&ab_channel=WebDevSimplified Pogledati ovo, dodati custom modale i dashboard pretvoriti u functional komponentu
+function Dashboard({address}) {
 
-class Dashboard extends React.Component {
-    constructor(props){
-      super(props);
-      this.state = {
-          currentAddress: this.props.address,
-      }
+     {/*const submit = async (e) => {
+    e.preventDefault();
+    await fetch('http://localhost:3000/api/login', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      credentials: 'include',
+      body: JSON.stringify({
+        address
+      })
+    });
+    const response = await fetch('http://localhost:3000/api/userAuth', {
+        headers: {'Content-Type': 'application/json'},
+        credentials: 'include',
+    });
+    const authState = await response.json();
+    setAuth(authState.state);
+    if (auth) {
+      setRedirect (true);
+    } else {
+      alert (`Neispravan unos podataka!`);
     }
-    
-    render(){
+    setRedirect (true);
+  } */}
+
+    var x1 = String(address);
+
+    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen2, setIsOpen2] = useState(false);
+    const [redirect, setRedirect] = useState(false);
 
     function eventHandler(){
         const mintAmount = parseInt(document.getElementById('inputField2').value);
-        const newAmount = parseInt(localStorage.getItem('myAddress'));
+        const newAmount = parseInt(localStorage.getItem(x1));
         const Mint = mintAmount + newAmount;
-        localStorage.setItem('myAddress', Mint);
+        localStorage.setItem(x1, Mint);
+        alert (`Your balance is now ${Mint} Ether!`);
         {/*window.location.reload();*/}
     }
 
     function eventHandler2(){
-        const transferAddress = parseInt(document.getElementById('inputField4').value);
+        const transferAddress = document.getElementById('inputField4').value;
         const transferAmount = parseInt(document.getElementById('inputField5').value);
         const transferValue = parseInt(localStorage.getItem(transferAddress)) + transferAmount;
-        const myNewValue = parseInt(localStorage.getItem('myAddress')) - transferAmount;
-        if (parseInt(localStorage.getItem('myAddress')) < transferAmount){
+        const myNewValue = parseInt(localStorage.getItem(x1)) - transferAmount;
+        if (parseInt(localStorage.getItem(x1)) < transferAmount){
             alert (`The amount you are trying to transfer is bigger than the amount on your address!`);
         } else {
-            if (localStorage.getItem(transferAddress) == null) {
+            if (localStorage.getItem(transferAddress) === localStorage.getItem(x1)){
+                alert (`You can't transfer to your own address! Please try again!`);
+            }
+            else if (localStorage.getItem(transferAddress) == null) {
                 localStorage.setItem(transferAddress, transferAmount);
                 alert (`A new Ethereum has been created and the transfer to it has been completed!`);
-                localStorage.setItem('myAddress', myNewValue);
+                localStorage.setItem(x1, myNewValue);
             } else {
             localStorage.setItem(transferAddress, transferValue);
-            localStorage.setItem('myAddress', myNewValue);
+            localStorage.setItem(x1, myNewValue);
             alert (`Transfer succesfull`);
             }
         }
     }
 
     function logoutHandler() {
-        localStorage.removeItem('myAddress');
-    }
+      setRedirect(true);
+  }
+
+  if (redirect){
+    return <Router><Route exact path="/">
+        <Login/>
+      </Route><Redirect to="/"/></Router>
+  }
+
     return (
         <Router>
             <Switch>
             <Route exact path="/explore" component={Explore}/>
             <div className="test">
-            <SkyLight hideOnOverlayClicked ref={ref => this.simpleDialog = ref} title="">
-                {/*<p className="text-black absolute top-0 right-0 mr-3 mt-2">X</p>*/}
+            <Modal open={isOpen} onClose={() => setIsOpen(false)}>
                 <div className="w-auto h-auto flex flex-col justify-evenly items-center content-around">
-                    <p className="text-black mb-10">Your Ether amount: {localStorage.getItem('myAddress')}</p>
+                    <p className="text-black mb-10">Your Ether amount: {localStorage.getItem(x1)}</p>
                     <input
                     id="inputField2"
+                    type="number"
                     placeholder="Enter amount"
                     className="mb-10 text-center pl-2 h-11 text-7x1 w-88 border-solid border border-primary rounded-4x1 bg-fourth outline-none text-black"
                     maxLength="8"
                     />
                     <button onClick={eventHandler} className="bg-primary border-solid border focus:outline-none rounded-5x1 w-88 h-12 text-white text-7x1">Mint</button>
                 </div>
-            </SkyLight>
-            <SkyLight hideOnOverlayClicked ref={ref => this.simpleDialog2 = ref} title="">
+            </Modal>
+            <Modal open={isOpen2} onClose={() => setIsOpen2(false)}>
                 <div className="w-auto h-auto flex flex-col justify-evenly items-center content-around">
-                    <p className="text-black mb-10">Your Ether amount: {localStorage.getItem('myAddress')}</p>
+                    <p className="text-black mb-10">Your Ether amount: {localStorage.getItem(x1)}</p>
                     <input
                     id="inputField4"
                     placeholder="Enter address"
@@ -77,13 +109,14 @@ class Dashboard extends React.Component {
                     />
                     <input
                     id="inputField5"
+                    type="number"
                     placeholder="Enter amount"
                     className="mb-10 text-center pl-2 h-11 text-7x1 w-88 border-solid border border-primary rounded-4x1 bg-fourth outline-none text-black"
                     maxLength="8"
                     />
                     <button onClick={eventHandler2} className="bg-primary border-solid border focus:outline-none rounded-5x1 w-88 h-12 text-white text-7x1">Transfer</button>
                 </div>
-            </SkyLight>
+            </Modal>
             <div className="fixed top-2/4 left-2/4 bg-white transform -translate-x-1/2 -translate-y-1/2 w-2/3 h-2/3 rounded-6x1 shadow-lg flex flex-col justify-around items-center">
                 <div className="h-1/3 w-full flex justify-center items-center">
                     <h1 className="text-10x1 italic text-black">Lepfner's blockchain explorer</h1>
@@ -98,20 +131,20 @@ class Dashboard extends React.Component {
                         </Link>
                     </div>
                     <div className="w-3/12 h-full">
-                        <button onClick={() => this.simpleDialog.show()} className="wrapper relative text-8x1 italic bg-purple-700 border-solid border focus:outline-none rounded-5x1 w-full h-full hover:text-purple-700 hover:opacity-50 duration-300">Mint<br/>
+                        <button onClick={() => setIsOpen(true)} className="wrapper relative text-8x1 italic bg-purple-700 border-solid border focus:outline-none rounded-5x1 w-full h-full hover:text-purple-700 hover:opacity-50 duration-300">Mint<br/>
                         <p className="content text-white absolute top-2/4 left-2/4 transform -translate-x-1/2 -translate-y-1/2">Add Ether to your address</p>
                         <FontAwesomeIcon icon={faWallet} color="white" className="h-7 wrapper-image"/>
                         </button>
                     </div>
                     <div className="w-3/12 h-full">
-                        <button onClick={() => this.simpleDialog2.show()} className="wrapper relative text-8x1 italic bg-purple-700 border-solid border focus:outline-none rounded-5x1 w-full h-full hover:text-purple-700 hover:opacity-50 duration-300">Transfer<br/>
+                        <button onClick={() => setIsOpen2(true)} className="wrapper relative text-8x1 italic bg-purple-700 border-solid border focus:outline-none rounded-5x1 w-full h-full hover:text-purple-700 hover:opacity-50 duration-300">Transfer<br/>
                         <p className="content text-white absolute top-2/4 left-2/4 transform -translate-x-1/2 -translate-y-1/2">Transfer Ether to another address</p>
                         <FontAwesomeIcon icon={faExchangeAlt} color="white" className="h-7 wrapper-image"/>
                         </button>
                     </div>
                 </div>
                 <div className="h-1/3 w-full">
-                    <button onClick={logoutHandler} className="absolute top-0 right-0 bg-purple-700 border-solid border focus:outline-none rounded-5x1 w-1/12 h-1/12 mt-2 mr-4">Logout</button>
+                    <button onClick={logoutHandler} className="italic absolute top-0 right-0 bg-purple-700 border-solid border focus:outline-none rounded-5x1 w-1/12 h-1/12 mt-2 mr-4">Logout</button>
                 </div>
             </div>
             </div>
@@ -119,7 +152,6 @@ class Dashboard extends React.Component {
         </Router>
         
     )
-}
 }
 
 export default Dashboard
