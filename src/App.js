@@ -3,8 +3,9 @@ import {BrowserRouter as Router, Route, Redirect} from "react-router-dom";
 import {React, useState} from 'react';
 import MainMenu from './Dashboard';
 import { useCookies } from "react-cookie";
+import auth from './auth';
 
-const App = () => {
+const App = (props) => {
 
   const [address, setAddress] = useState('');
   const [redirect, setRedirect] = useState(false);
@@ -44,13 +45,14 @@ const App = () => {
       setCookie(address, {
         path: "/"
       });
+      localStorage.setItem('current', searchTerm);
       setRedirect(true);
   }
   }
 
   if (redirect){
     return <Router><Route exact path="/dashboard">
-        <MainMenu address={address}/>
+        <MainMenu/>
       </Route><Redirect to="/dashboard"/></Router>
   }
 
