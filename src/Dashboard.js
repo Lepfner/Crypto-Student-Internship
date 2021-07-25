@@ -17,7 +17,9 @@ function Dashboard() {
     const [isOpen2, setIsOpen2] = useState(false);
     const [redirect, setRedirect] = useState(false);
 
-    function eventHandler(e){
+    var ethereum_address = require('ethereum-address');
+
+    function mintHandler(e){
         const mintAmount = parseInt(document.getElementById('inputField2').value);
         const currentAmount = parseInt(localStorage.getItem(String(localStorage.getItem('current'))));
         const Mint = mintAmount + currentAmount;
@@ -34,14 +36,16 @@ function Dashboard() {
         {/*window.location.reload();*/}
     }
 
-    function eventHandler2(e){
+    function transferHandler(e){
         const transferAddress = document.getElementById('inputField4').value;
-        var checkAddress = document.getElementById('inputField4').value.trim();
+
         const transferAmount = parseInt(document.getElementById('inputField5').value);
         var checkAmount = document.getElementById('inputField5').value.trim();
+        
         const transferValue = parseInt(localStorage.getItem(transferAddress)) + transferAmount;
-        const myNewValue = parseInt(localStorage.getItem(String(localStorage.getItem('current')))) - transferAmount;
-        if((!checkAmount || !checkAddress) || transferAmount <= 0){
+        const NewValue = parseInt(localStorage.getItem(String(localStorage.getItem('current')))) - transferAmount;
+        
+        if((!checkAmount || !ethereum_address.isAddress(transferAddress)) || transferAmount <= 0){
             alert (`Invalid address or amount!`);
             setMyAlert2("Invalid address or amount!");
             e.preventDefault();
@@ -60,15 +64,15 @@ function Dashboard() {
                     localStorage.setItem(transferAddress, transferAmount);
                     alert (`A new Ethereum has been created and the transfer to it has been completed!`);
                     setMyAlert2(`A new Ethereum has been created and the transfer to it has been completed!`);
-                    localStorage.setItem(String(localStorage.getItem('current')), myNewValue);
-                    setMyValue2(myNewValue);
+                    localStorage.setItem(String(localStorage.getItem('current')), NewValue);
+                    setMyValue2(NewValue);
                     e.preventDefault();
                 } else {
                     localStorage.setItem(transferAddress, transferValue);
-                    localStorage.setItem(String(localStorage.getItem('current')), myNewValue);
+                    localStorage.setItem(String(localStorage.getItem('current')), NewValue);
                     alert (`Transfer succesfull`);
                     setMyAlert2(`Transfer succesfull`);
-                    setMyValue2(myNewValue);
+                    setMyValue2(NewValue);
                     e.preventDefault();
                 }
             }
@@ -81,8 +85,7 @@ function Dashboard() {
   }
 
   if (redirect){
-    return <Router><Route exact path="/">
-        <Login/>
+    return <Router><Route exact path="/" component={Login}>
       </Route><Redirect to="/"/></Router>
   }
 
@@ -95,7 +98,7 @@ function Dashboard() {
             <div className="test">
             <Modal open={isOpen} onClose={() => setIsOpen(false)}>
                 <div className="w-auto h-auto flex flex-col justify-evenly items-center content-around">
-                    <p className="text-black mb-5">Your Ether amount:{myValue} {localStorage.getItem(String(localStorage.getItem('current')))}</p>
+                    <p className="text-black mb-5">Your Ether amount: {myValue}</p>
                     <p className="text-red-500 mb-10">{myalert}</p>
                     <input
                     id="inputField2"
@@ -104,20 +107,19 @@ function Dashboard() {
                     className="mb-10 text-center pl-2 h-11 text-7x1 w-88 border-solid border border-primary rounded-4x1 bg-fourth outline-none text-black"
                     maxLength="8"
                     />
-                    <button onClick={eventHandler} className="bg-primary border-solid border focus:outline-none rounded-5x1 w-88 h-12 text-white text-7x1">Mint</button>
+                    <button onClick={mintHandler} className="bg-primary border-solid border focus:outline-none rounded-5x1 w-88 h-12 text-white text-7x1">Mint</button>
                 </div>
             </Modal>
             <Modal open={isOpen2} onClose={() => setIsOpen2(false)}>
                 <div className="w-auto h-auto flex flex-col justify-evenly items-center content-around">
-                    <p className="text-black mb-5">Your Ether amount:{myValue2} {localStorage.getItem(String(localStorage.getItem('current')))}</p>
+                    <p className="text-black mb-5">Your Ether amount: {myValue2}</p>
                     <p className="text-red-500 mb-10">{myalert2}</p>
-                    <form className="flex flex-col justif-evenly items-center content-around" onSubmit={eventHandler2}>
+                    <form className="flex flex-col justif-evenly items-center content-around" onSubmit={transferHandler}>
                     <input
                         required
                         id="inputField4"
                         placeholder="Enter address"
                         className="mb-10 text-center pl-2 h-11 text-7x1 w-88 border-solid border border-primary rounded-4x1 bg-fourth outline-none text-black"
-                        maxLength="8"
                         />
                         <input
                         required
@@ -127,7 +129,7 @@ function Dashboard() {
                         className="mb-10 text-center pl-2 h-11 text-7x1 w-88 border-solid border border-primary rounded-4x1 bg-fourth outline-none text-black"
                         maxLength="8"
                         />
-                        <button onClick={eventHandler2} className="bg-primary border-solid border focus:outline-none rounded-5x1 w-88 h-12 text-white text-7x1">Transfer</button>
+                        <button onClick={transferHandler} className="bg-primary border-solid border focus:outline-none rounded-5x1 w-88 h-12 text-white text-7x1">Transfer</button>
                     </form>
                 </div>
             </Modal>

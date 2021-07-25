@@ -10,6 +10,7 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "ethereum-address": "0.0.4",
     "font-awesome": "^4.7.0",
     "react": "^17.0.2",
     "react-animated-modal": "^1.1.1",
@@ -18,7 +19,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-skylight": "^0.5.1",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "web3-react": "^5.0.5"
   },
   "scripts": {
     "start": "craco start",
