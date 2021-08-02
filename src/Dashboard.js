@@ -10,7 +10,7 @@ function Dashboard() {
 
     const [myalert, setMyAlert] = useState('');
     const [myalert2, setMyAlert2] = useState('');
-    const [myValue, setMyValue] = useState();
+    const [myValue, setMyValue] = useState(localStorage.getItem(localStorage.getItem('current')));
     const [myValue2, setMyValue2] = useState();
 
     const [isOpen, setIsOpen] = useState(false);
@@ -25,12 +25,11 @@ function Dashboard() {
         const Mint = mintAmount + currentAmount;
         var searchTerm = document.getElementById('inputField2').value.trim();
         if(!searchTerm || mintAmount <= 0){
-            alert (`Please enter a valid amount!`);
-            setMyAlert('Please enter a valid amount!')
+            setMyAlert('Please enter a valid amount!');
             e.preventDefault();
         } else {
             localStorage.setItem(String(localStorage.getItem('current')), Mint);
-            alert (`Your balance is now ${Mint} Ether!`);
+            e.preventDefault();
             setMyValue(Mint);
         }
         {/*window.location.reload();*/}
@@ -46,23 +45,19 @@ function Dashboard() {
         const NewValue = parseInt(localStorage.getItem(String(localStorage.getItem('current')))) - transferAmount;
         
         if((!checkAmount || !ethereum_address.isAddress(transferAddress)) || transferAmount <= 0){
-            alert (`Invalid address or amount!`);
             setMyAlert2("Invalid address or amount!");
             e.preventDefault();
         } else {
             if (parseInt(localStorage.getItem(String(localStorage.getItem('current')))) < transferAmount){
-                alert (`The amount you are trying to transfer is bigger than the amount on your address!`);
                 setMyAlert2("The amount you are trying to transfer is bigger than the amount on your address!");
                 e.preventDefault();
             } else {
                 if (transferAddress === String(localStorage.getItem('current'))){
-                    alert (`You can't transfer to your own address! Please try again!`);
                     setMyAlert2(`You can't transfer to your own address! Please try again!`);
                     e.preventDefault();
                 }
                 else if (localStorage.getItem(transferAddress) == null) {
                     localStorage.setItem(transferAddress, transferAmount);
-                    alert (`A new Ethereum has been created and the transfer to it has been completed!`);
                     setMyAlert2(`A new Ethereum has been created and the transfer to it has been completed!`);
                     localStorage.setItem(String(localStorage.getItem('current')), NewValue);
                     setMyValue2(NewValue);
@@ -70,7 +65,6 @@ function Dashboard() {
                 } else {
                     localStorage.setItem(transferAddress, transferValue);
                     localStorage.setItem(String(localStorage.getItem('current')), NewValue);
-                    alert (`Transfer succesfull`);
                     setMyAlert2(`Transfer succesfull`);
                     setMyValue2(NewValue);
                     e.preventDefault();
@@ -82,7 +76,16 @@ function Dashboard() {
     function logoutHandler() {
       setRedirect(true);
       localStorage.removeItem('current')
-  }
+    }
+
+    function modalHandler() {
+        setIsOpen(false);
+        setMyAlert('');
+    }
+    function modalHandler2() {
+        setIsOpen2(false);
+        setMyAlert2('');
+    }
 
   if (redirect){
     return <Router><Route exact path="/" component={Login}>
@@ -96,9 +99,9 @@ function Dashboard() {
                 <Explore/>
             </Route>
             <div className="test">
-            <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+            <Modal myalert={myalert} open={isOpen} onClose={modalHandler}>
                 <div className="w-auto h-auto flex flex-col justify-evenly items-center content-around">
-                    <p className="text-black mb-5">Your Ether amount: {myValue}</p>
+                    <p className="text-black mb-5">Your Ether amount: {localStorage.getItem(localStorage.getItem('current'))}</p>
                     <p className="text-red-500 mb-10">{myalert}</p>
                     <input
                     id="inputField2"
@@ -110,9 +113,9 @@ function Dashboard() {
                     <button onClick={mintHandler} className="bg-primary border-solid border focus:outline-none rounded-5x1 w-88 h-12 text-white text-7x1">Mint</button>
                 </div>
             </Modal>
-            <Modal open={isOpen2} onClose={() => setIsOpen2(false)}>
+            <Modal open={isOpen2} onClose={modalHandler2}>
                 <div className="w-auto h-auto flex flex-col justify-evenly items-center content-around">
-                    <p className="text-black mb-5">Your Ether amount: {myValue2}</p>
+                    <p className="text-black mb-5">Your Ether amount: {localStorage.getItem(localStorage.getItem('current'))}</p>
                     <p className="text-red-500 mb-10">{myalert2}</p>
                     <form className="flex flex-col justif-evenly items-center content-around" onSubmit={transferHandler}>
                     <input

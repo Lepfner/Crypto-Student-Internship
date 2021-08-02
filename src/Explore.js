@@ -16,15 +16,15 @@ function Explore() {
             if (localStorage.getItem(searchTerm) == null) {
                 localStorage.setItem(searchTerm, 0);
                 setSearchTerm('A new address has been created and a value of zero Ether has been assigned!');
-                alert (`A new address has been created and a value of zero Ether has been assigned!`);
+                e.preventDefault();
             } else {
                 var localStorageItem = String(localStorage.getItem(searchTerm));
                 setSearchTerm(`Amount on searched address is: ${localStorageItem} Ether!`);
-                alert (`Amount on ${searchTerm} is: ${localStorageItem} Ether!`);
+                e.preventDefault();
             }
           } else {
             console.log('Invalid Ethereum address.');
-            alert (`Invalid address format!`);
+            setSearchTerm('Invalid Ethereum address!')
             e.preventDefault();
           }
     } 
