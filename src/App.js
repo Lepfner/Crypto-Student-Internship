@@ -4,6 +4,7 @@ import {React, useState} from 'react';
 import MainMenu from './Dashboard';
 import { useCookies } from "react-cookie";
 import auth from './auth';
+import { createBrowserHistory } from 'history';
 
 const App = () => {
 
