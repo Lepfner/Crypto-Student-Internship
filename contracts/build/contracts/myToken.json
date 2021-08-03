@@ -1,0 +1,223 @@
+{
+  "contractName": "myToken",
+  "abi": [
+    {
+      "inputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/myToken.sol\":\"myToken\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/myToken.sol\":{\"keccak256\":\"0xd968d70a3ec9563d98e34d4cdc00431641917181a594ff3145100c8c73baa0e2\",\"urls\":[\"bzz-raw://f8f9f3ff35133b9fc116513db5ecf4bb8d14d25dcf9166a16c603c79cc586539\",\"dweb:/ipfs/QmS88onkbPZf2vP7gsfMw7jUneLnFiJtGXTUH3xMZAAmRP\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603e80601d6000396000f3fe6080604052600080fdfea265627a7a72315820b1ab9efc69bd9bb858c15eac3a502b217f2b19f20711f7cf243e9b0f0fe6e2c364736f6c63430005100032",
+  "deployedBytecode": "0x6080604052600080fdfea265627a7a72315820b1ab9efc69bd9bb858c15eac3a502b217f2b19f20711f7cf243e9b0f0fe6e2c364736f6c63430005100032",
+  "sourceMap": "66:49:1:-;;;87:26;8:9:-1;5:2;;;30:1;27;20:12;5:2;87:26:1;66:49;;;;;;",
+  "deployedSourceMap": "66:49:1:-;;;;;",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity >=0.4.22 <0.9.0;\n\ncontract myToken {\n  constructor() public {\n  }\n}\n",
+  "sourcePath": "D:\\Andrija\\Ether clone\\Crypto-Student-Internship\\contracts\\contracts\\myToken.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/myToken.sol",
+    "exportedSymbols": {
+      "myToken": [
+        39
+      ]
+    },
+    "id": 40,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 34,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.4",
+          ".22",
+          "<",
+          "0.9",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:32:1"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 39,
+        "linearizedBaseContracts": [
+          39
+        ],
+        "name": "myToken",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 37,
+              "nodeType": "Block",
+              "src": "108:5:1",
+              "statements": []
+            },
+            "documentation": null,
+            "id": 38,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 35,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "98:2:1"
+            },
+            "returnParameters": {
+              "id": 36,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "108:0:1"
+            },
+            "scope": 39,
+            "src": "87:26:1",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 40,
+        "src": "66:49:1"
+      }
+    ],
+    "src": "32:84:1"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/myToken.sol",
+      "exportedSymbols": {
+        "myToken": [
+          39
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            ">=",
+            "0.4",
+            ".22",
+            "<",
+            "0.9",
+            ".0"
+          ]
+        },
+        "id": 34,
+        "name": "PragmaDirective",
+        "src": "32:32:1"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            39
+          ],
+          "name": "myToken",
+          "scope": 40
+        },
+        "children": [
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": true,
+              "kind": "constructor",
+              "modifiers": [
+                null
+              ],
+              "name": "",
+              "scope": 39,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 35,
+                "name": "ParameterList",
+                "src": "98:2:1"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 36,
+                "name": "ParameterList",
+                "src": "108:0:1"
+              },
+              {
+                "attributes": {
+                  "statements": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 37,
+                "name": "Block",
+                "src": "108:5:1"
+              }
+            ],
+            "id": 38,
+            "name": "FunctionDefinition",
+            "src": "87:26:1"
+          }
+        ],
+        "id": 39,
+        "name": "ContractDefinition",
+        "src": "66:49:1"
+      }
+    ],
+    "id": 40,
+    "name": "SourceUnit",
+    "src": "32:84:1"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.16+commit.9c3226ce.Emscripten.clang"
+  },
+  "networks": {
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0xaD55339616eD92a74E44bbAbf3C11af4dF1B77d0",
+      "transactionHash": "0x11d90d5ee32af98c21b2bbf5af42e24c956aa5790234fd3f909abcf4c88c7587"
+    }
+  },
+  "schemaVersion": "3.4.2",
+  "updatedAt": "2021-08-03T13:42:55.511Z",
+  "networkType": "ethereum",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}
