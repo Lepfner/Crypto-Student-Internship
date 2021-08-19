@@ -1,11 +1,12 @@
 //Components
-import Explore from './Explore'
+import Explore from './Explore';
 import Login from '../App';
-import Modal from './Modal'
+import Modal from './Modal';
+import CreateToken from './CreateToken';
 //Dependencies
 import {React, useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faWallet, faExchangeAlt} from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faWallet, faExchangeAlt, faPlusSquare} from '@fortawesome/free-solid-svg-icons';
 import {BrowserRouter as Router, Route, Link, Switch, Redirect} from "react-router-dom";
 function Dashboard() {
     //Mint & transfer
@@ -95,6 +96,7 @@ function Dashboard() {
         <Router>
             <Switch>
             <Route exact path="/explore" component={Explore}></Route>
+            <Route exact path="/create-token" component={CreateToken}></Route>
             <div className="test">
             <Modal myalert={myalert} open={isOpen} onClose={modalHandler}>
                 <div className="w-auto h-auto flex flex-col justify-evenly items-center content-around">
@@ -114,8 +116,8 @@ function Dashboard() {
                 <div className="w-auto h-auto flex flex-col justify-evenly items-center content-around">
                     <p className="text-black mb-5">Your Ether amount: {localStorage.getItem(localStorage.getItem('current'))}</p>
                     <p className="text-red-500 mb-10">{myalert2}</p>
-                    <form className="flex flex-col justif-evenly items-center content-around" onSubmit={transferHandler}>
-                    <input
+                    <form className="flex flex-col justify-evenly items-center content-around" onSubmit={transferHandler}>
+                        <input
                         required
                         id="inputField4"
                         placeholder="Enter address"
@@ -138,7 +140,7 @@ function Dashboard() {
                     <h1 className="text-10x1 italic text-black">Lepfner's blockchain explorer</h1>
                 </div>
                 <div className="h-1/3 w-full flex justify-around items-center">
-                    <div className="w-3/12 h-full">
+                    <div className="w-1/5 h-full">
                         <Link to="/explore">
                         <button className="text-white wrapper relative text-8x1 italic bg-purple-700 border-solid border focus:outline-none rounded-5x1 w-full h-full hover:text-purple-700 hover:opacity-50 duration-300">Explore<br/>
                         <p className="content text-white text-sm md:text-md lg:text-xl absolute top-2/4 left-2/4 transform -translate-x-1/2 -translate-y-1/2">Explore addresses and their Ether amount</p>
@@ -146,17 +148,25 @@ function Dashboard() {
                         </button>
                         </Link>
                     </div>
-                    <div className="w-3/12 h-full">
+                    <div className="w-1/5 h-full">
                         <button onClick={() => setIsOpen(true)} className="text-white wrapper relative text-8x1 italic bg-purple-700 border-solid border focus:outline-none rounded-5x1 w-full h-full hover:text-purple-700 hover:opacity-50 duration-300">Mint<br/>
                         <p className="content text-white text-sm md:text-md lg:text-xl absolute top-2/4 left-2/4 transform -translate-x-1/2 -translate-y-1/2">Add Ether to your address</p>
                         <FontAwesomeIcon icon={faWallet} color="white" className="h-7 wrapper-image"/>
                         </button>
                     </div>
-                    <div className="w-3/12 h-full">
+                    <div className="w-1/5 h-full">
                         <button onClick={() => setIsOpen2(true)} className="text-white wrapper relative text-8x1 italic bg-purple-700 border-solid border focus:outline-none rounded-5x1 w-full h-full hover:text-purple-700 hover:opacity-50 duration-300">Transfer<br/>
                         <p className="content text-white text-sm md:text-md lg:text-xl absolute top-2/4 left-2/4 transform -translate-x-1/2 -translate-y-1/2">Transfer Ether to another address</p>
                         <FontAwesomeIcon icon={faExchangeAlt} color="white" className="h-7 wrapper-image"/>
                         </button>
+                    </div>
+                    <div className="w-1/5 h-full">
+                        <Link to="/create-token">
+                        <button className="text-white wrapper relative text-8x1 italic bg-purple-700 border-solid border focus:outline-none rounded-5x1 w-full h-full hover:text-purple-700 hover:opacity-50 duration-300">Create Token<br/>
+                        <p className="content text-white text-sm md:text-md lg:text-xl absolute top-2/4 left-2/4 transform -translate-x-1/2 -translate-y-1/2">Create new ERC20 tokens</p>
+                        <FontAwesomeIcon icon={faPlusSquare} color="white" className="h-7 wrapper-image"/>
+                        </button>
+                        </Link>
                     </div>
                 </div>
                 <div className="h-1/3 w-full">
