@@ -1,14 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './css/index.css'
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { CookiesProvider } from "react-cookie";
+import { BrowserRouter } from 'react-router-dom';
+import { DAppProvider } from "@usedapp/core";
 
 ReactDOM.render(
-  <CookiesProvider>
-      <App />
-  </CookiesProvider>,
+  <BrowserRouter>
+    <CookiesProvider>
+      <DAppProvider>
+        <App />
+      </DAppProvider>,
+    </CookiesProvider>,
+  </BrowserRouter>,
   document.getElementById('root')
 );
 
