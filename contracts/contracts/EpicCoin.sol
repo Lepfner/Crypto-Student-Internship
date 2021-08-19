@@ -7,4 +7,7 @@ contract EpicCoin is ERC20 {
   constructor(uint256 initialSupply) ERC20("EpicCoin", "EC") {
         _mint(msg.sender, initialSupply * (10 ** decimals()));
     }
+  function mint(address account, uint256 amount) public {
+        _mint(account, amount);
+    }
 }

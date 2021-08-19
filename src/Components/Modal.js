@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDom from 'react-dom'
+import '../css/App.css'
 
 const MODAL_STYLES = {
   position: 'fixed',
@@ -22,6 +23,7 @@ const OVERLAY_STYLES = {
 }
 
 export default function Modal({ open, children, onClose }) {
+  
   if (!open) return null
 
   return ReactDom.createPortal(

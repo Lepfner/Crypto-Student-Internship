@@ -1,20 +1,22 @@
-import {React, useState} from 'react';
+//Components
 import Explore from './Explore'
+import Login from '../App';
+import Modal from './Modal'
+//Dependencies
+import {React, useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faWallet, faExchangeAlt} from '@fortawesome/free-solid-svg-icons';
 import {BrowserRouter as Router, Route, Link, Switch, Redirect} from "react-router-dom";
-import Login from './App';
-import Modal from './Modal'
-
 function Dashboard() {
-
+    //Mint & transfer
     const [myalert, setMyAlert] = useState('');
     const [myalert2, setMyAlert2] = useState('');
     const [myValue, setMyValue] = useState(localStorage.getItem(localStorage.getItem('current')));
     const [myValue2, setMyValue2] = useState();
-
+    //Modals
     const [isOpen, setIsOpen] = useState(false);
     const [isOpen2, setIsOpen2] = useState(false);
+    //Redirect
     const [redirect, setRedirect] = useState(false);
 
     var ethereum_address = require('ethereum-address');
@@ -32,7 +34,6 @@ function Dashboard() {
             e.preventDefault();
             setMyValue(Mint);
         }
-        {/*window.location.reload();*/}
     }
 
     function transferHandler(e){
@@ -72,12 +73,10 @@ function Dashboard() {
             }
         }
     }
-
     function logoutHandler() {
       setRedirect(true);
       localStorage.removeItem('current')
     }
-
     function modalHandler() {
         setIsOpen(false);
         setMyAlert('');
@@ -87,17 +86,15 @@ function Dashboard() {
         setMyAlert2('');
     }
 
-  if (redirect){
+    if (redirect){
     return <Router><Route exact path="/" component={Login}>
       </Route><Redirect to="/"/></Router>
-  }
+    }
 
     return (
         <Router>
             <Switch>
-            <Route exact path="/explore">
-                <Explore/>
-            </Route>
+            <Route exact path="/explore" component={Explore}></Route>
             <div className="test">
             <Modal myalert={myalert} open={isOpen} onClose={modalHandler}>
                 <div className="w-auto h-auto flex flex-col justify-evenly items-center content-around">
@@ -143,27 +140,27 @@ function Dashboard() {
                 <div className="h-1/3 w-full flex justify-around items-center">
                     <div className="w-3/12 h-full">
                         <Link to="/explore">
-                        <button className="wrapper relative text-8x1 italic bg-purple-700 border-solid border focus:outline-none rounded-5x1 w-full h-full hover:text-purple-700 hover:opacity-50 duration-300">Explore<br/>
+                        <button className="text-white wrapper relative text-8x1 italic bg-purple-700 border-solid border focus:outline-none rounded-5x1 w-full h-full hover:text-purple-700 hover:opacity-50 duration-300">Explore<br/>
                         <p className="content text-white text-sm md:text-md lg:text-xl absolute top-2/4 left-2/4 transform -translate-x-1/2 -translate-y-1/2">Explore addresses and their Ether amount</p>
                         <FontAwesomeIcon icon={faSearch} color="white" className="h-7 wrapper-image"/>
                         </button>
                         </Link>
                     </div>
                     <div className="w-3/12 h-full">
-                        <button onClick={() => setIsOpen(true)} className="wrapper relative text-8x1 italic bg-purple-700 border-solid border focus:outline-none rounded-5x1 w-full h-full hover:text-purple-700 hover:opacity-50 duration-300">Mint<br/>
+                        <button onClick={() => setIsOpen(true)} className="text-white wrapper relative text-8x1 italic bg-purple-700 border-solid border focus:outline-none rounded-5x1 w-full h-full hover:text-purple-700 hover:opacity-50 duration-300">Mint<br/>
                         <p className="content text-white text-sm md:text-md lg:text-xl absolute top-2/4 left-2/4 transform -translate-x-1/2 -translate-y-1/2">Add Ether to your address</p>
                         <FontAwesomeIcon icon={faWallet} color="white" className="h-7 wrapper-image"/>
                         </button>
                     </div>
                     <div className="w-3/12 h-full">
-                        <button onClick={() => setIsOpen2(true)} className="wrapper relative text-8x1 italic bg-purple-700 border-solid border focus:outline-none rounded-5x1 w-full h-full hover:text-purple-700 hover:opacity-50 duration-300">Transfer<br/>
+                        <button onClick={() => setIsOpen2(true)} className="text-white wrapper relative text-8x1 italic bg-purple-700 border-solid border focus:outline-none rounded-5x1 w-full h-full hover:text-purple-700 hover:opacity-50 duration-300">Transfer<br/>
                         <p className="content text-white text-sm md:text-md lg:text-xl absolute top-2/4 left-2/4 transform -translate-x-1/2 -translate-y-1/2">Transfer Ether to another address</p>
                         <FontAwesomeIcon icon={faExchangeAlt} color="white" className="h-7 wrapper-image"/>
                         </button>
                     </div>
                 </div>
                 <div className="h-1/3 w-full">
-                    <button onClick={logoutHandler} className="italic text-sm md:text-md lg:text-xl absolute top-0 right-0 bg-purple-700 border-solid border focus:outline-none rounded-5x1 w-1/12 h-1/12 mt-2 mr-4">Logout</button>
+                    <button onClick={logoutHandler} className="text-white italic text-sm md:text-md lg:text-xl absolute top-0 right-0 bg-purple-700 border-solid border focus:outline-none rounded-5x1 w-1/12 h-1/12 mt-2 mr-4">Logout</button>
                 </div>
             </div>
             </div>
@@ -172,4 +169,4 @@ function Dashboard() {
     )
 }
 
-export default Dashboard
+export default Dashboard;

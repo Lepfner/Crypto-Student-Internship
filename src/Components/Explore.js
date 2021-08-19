@@ -1,5 +1,7 @@
-import {BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
+//Components
 import Dashboard from './Dashboard';
+//Dependencies
+import {BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
 import {React, useState} from 'react';
 
 function Explore() {
@@ -7,19 +9,22 @@ function Explore() {
     const [searchTerm, setSearchTerm] = useState('Searched Ether amount:');
 
     var ethereum_address = require('ethereum-address');
+    const Web3 = require("web3")
+    const web3 = new Web3("http://127.0.0.1:9545");
 
     const eventHandler = (e) => {
         var searchTerm = document.getElementById('inputField').value;
-
         if (ethereum_address.isAddress(searchTerm)) {
-            console.log('Valid ethereum address.');
             if (localStorage.getItem(searchTerm) == null) {
                 localStorage.setItem(searchTerm, 0);
                 setSearchTerm('A new address has been created and a value of zero Ether has been assigned!');
                 e.preventDefault();
             } else {
                 var localStorageItem = String(localStorage.getItem(searchTerm));
-                setSearchTerm(`Amount on searched address is: ${localStorageItem} Ether!`);
+                var exploreValue = web3.eth.getBalance(String(searchTerm), function(err, result) {
+                    var returnValue =  web3.utils.fromWei(result, "ether") + " ETH";
+                    setSearchTerm(`Amount on searched address is: ${returnValue} Ether!`);
+                  })
                 e.preventDefault();
             }
           } else {
@@ -32,9 +37,7 @@ function Explore() {
     return (
         <Router>
             <Switch>
-            <Route exact path="/dashboard">
-                <Dashboard/>
-            </Route>
+            <Route exact path="/dashboard" component={Dashboard}></Route>
             <div className="test">
             <div className="fixed top-2/4 left-2/4 bg-white transform -translate-x-1/2 -translate-y-1/2 w-1/3 h-1/3 rounded-6x1 shadow-lg flex text-center flex-col justify-evenly items-center content-around">
                 <p className="italic text-black">Please enter address below:</p>
