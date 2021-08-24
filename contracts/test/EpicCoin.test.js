@@ -2,19 +2,6 @@ const EpicCoin = artifacts.require("EpicCoin");
 const { expect } = require('chai');
 const { BN, expectEvent, expectRevert, constants } = require('@openzeppelin/test-helpers');
 
-//name
-//symbol
-//totalSupply
-//balanceOf
-//transfer
-
-//mint
-//allowance
-//approve
-//transferFrom
-//increaseAllowance
-//decreaseAllowance
-
 contract("EpicCoin", (accounts) =>{
 
     const NAME = 'EpicCoin';
