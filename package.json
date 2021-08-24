@@ -16,6 +16,7 @@
     "@testing-library/user-event": "^12.8.3",
     "@truffle/hdwallet-provider": "^1.4.3",
     "@usedapp/core": "^0.4.4",
+    "chai": "^4.3.4",
     "ethereum-address": "0.0.4",
     "font-awesome": "^4.7.0",
     "openzeppelin-solidity": "^4.2.0",
@@ -55,6 +56,7 @@
     ]
   },
   "devDependencies": {
+    "@openzeppelin/test-helpers": "^0.5.13",
     "autoprefixer": "^9.8.6",
     "postcss": "^7.0.36",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.4"
