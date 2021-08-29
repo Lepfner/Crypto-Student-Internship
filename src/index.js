@@ -8,13 +8,13 @@ import { BrowserRouter } from 'react-router-dom';
 import { DAppProvider } from "@usedapp/core";
 
 ReactDOM.render(
-  <BrowserRouter>
     <CookiesProvider>
       <DAppProvider>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </DAppProvider>,
     </CookiesProvider>,
-  </BrowserRouter>,
   document.getElementById('root')
 );
 

@@ -8,6 +8,7 @@ import {React, useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faWallet, faExchangeAlt, faPlusSquare} from '@fortawesome/free-solid-svg-icons';
 import {BrowserRouter as Router, Route, Link, Switch, Redirect} from "react-router-dom";
+import Web3 from 'web3';
 function Dashboard() {
     //Mint & transfer
     const [myalert, setMyAlert] = useState('');
@@ -19,7 +20,7 @@ function Dashboard() {
     const [isOpen2, setIsOpen2] = useState(false);
     //Redirect
     const [redirect, setRedirect] = useState(false);
-
+    //web3
     var ethereum_address = require('ethereum-address');
 
     function mintHandler(e){
