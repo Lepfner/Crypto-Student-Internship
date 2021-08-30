@@ -3,8 +3,20 @@ import Dashboard from './Dashboard';
 //Dependencies
 import {BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
 import {React, useState} from 'react';
+import Web3 from 'web3';
 
 function CreateToken() {
+
+    const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
+
+    async function createToken(e){
+        var myContract = new web3.eth.Contract([], '0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe', {
+            from: '0x1234567890123456789012345678901234567891', // default from address
+            gasPrice: '20000000000' // default gas price in wei, 20 gwei in this case
+        });
+        e.preventDefault();
+    }
+
     return (
         <Router>
             <Switch>

@@ -12,45 +12,35 @@ function Explore() {
     var ethereum_address = require('ethereum-address');
     const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
 
-    const minABI = [
-        // balanceOf
-        {
-          constant: true,
-          inputs: [{ name: "_owner", type: "address" }],
-          name: "balanceOf",
-          outputs: [{ name: "balance", type: "uint256" }],
-          type: "function",
-        },
-      ];
+    // The minimum ABI to get ERC20 Token balance
+    let minABI = [
+      // balanceOf
+      {
+        "constant":true,
+        "inputs":[{"name":"_owner","type":"address"}],
+        "name":"balanceOf",
+        "outputs":[{"name":"balance","type":"uint256"}],
+        "type":"function"
+      },
+      // decimals
+      {
+        "constant":true,
+        "inputs":[],
+        "name":"decimals",
+        "outputs":[{"name":"","type":"uint8"}],
+        "type":"function"
+      }
+    ];
 
-    const tokenAddress = "0x98d2f8442311fa3c06a2f3c3260f875e02469e38";
-    const walletAddress = "0x7905665674B406bF9CC1b5A2D65dc331fE0561Cc"
-
-    const contract = new web3.eth.Contract(minABI, tokenAddress);
-
-    const ulala = async(e) => {
-        const result = await contract.methods.balanceOf(walletAddress).call();
-        e.preventDefault();
-  
-        const format = web3.utils.fromWei(result);
-
-        console.log(format);
+    const exploreHandler = async(e) => {
+      let tokenAddress = "0x98d2f8442311fa3c06a2f3c3260f875e02469e38";
+      const inputValue = document.getElementById('inputField').value;
+      let walletAddress = `${inputValue}`;
+      let contract = new web3.eth.Contract(minABI, tokenAddress);
+      e.preventDefault();
+      let balance = await contract.methods.balanceOf(walletAddress).call();
+      setSearchTerm("Amount on searched address is: " + (balance / 1000000000000000000) + " EC");
     }
-
-    const eventHandler = (e) => {
-        var searchTerm = document.getElementById('inputField').value;
-        if (ethereum_address.isAddress(searchTerm)) {
-                var exploreValue = web3.eth.getBalance(String(searchTerm), function(err, result) {
-                    var returnValue =  web3.utils.fromWei(result, "ether") + " EC";
-                    setSearchTerm(`Amount on searched address is: ${returnValue}!`);
-                  })
-                e.preventDefault();
-        }else {
-            console.log('Invalid Ethereum address.');
-            setSearchTerm('Invalid Ethereum address!')
-            e.preventDefault();
-          }
-    } 
 
     return (
         <Router>
@@ -66,7 +56,7 @@ function Explore() {
                 placeholder="Ethereum address"
                 className="text-center pl-2 h-11 text-7x1 w-full border-solid border border-primary rounded-4x1 bg-fourth outline-none text-black mb-4"
                 />
-                <button onClick={ulala} className="bg-primary border-solid border focus:outline-none rounded-5x1 w-full h-12 text-white text-7x1 mb-4">Explore</button>
+                <button onClick={exploreHandler} className="bg-primary border-solid border focus:outline-none rounded-5x1 w-full h-12 text-white text-7x1 mb-4">Explore</button>
                 <Link to="/dashboard">
                     <button className="bg-primary border-solid border focus:outline-none rounded-5x1 w-full h-12 text-white text-7x1">Back</button>
                 </Link>
