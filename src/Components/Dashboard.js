@@ -9,7 +9,6 @@ import { faSearch, faWallet, faExchangeAlt, faPlusSquare} from '@fortawesome/fre
 import {BrowserRouter as Router, Route, Link, Switch, Redirect} from "react-router-dom";
 import Web3 from 'web3';
 function Dashboard() {
-    //epic coin 0x98d2f8442311fa3c06a2f3c3260f875e02469e38
 
     //Mint & transfer
     const [myalert, setMyAlert] = useState('');
